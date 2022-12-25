@@ -34,8 +34,6 @@ def main():
                     content = read_content(f"{p}/{year}/{file}")
                     dp = {
                         "category": category,
-                        "year": year,
-                        "date": file.split(".")[0],
                         "time_created": os.path.getctime(f"{p}/{year}/{file}"),
                         "content": content
                     }
@@ -45,9 +43,7 @@ def main():
                 content = read_content(f"{p}/{file}")
                 dp = {
                     "category": category,
-                    "date": file.split(".")[0],
                     "time_created": os.path.getctime(f"{p}/{file}"),
-                    "time_modified": os.path.getmtime(f"{p}/{file}"),
                     "content": content
                 }
                 add_item(dp)
