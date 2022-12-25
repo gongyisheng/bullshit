@@ -10,7 +10,7 @@ def list_file(path):
     return files
 
 def read_content(path):
-    f = open(path, "r")
+    f = open(path, "r", encoding="utf_8")
     content = f.read()
     f.close()
     return content
@@ -19,7 +19,7 @@ def add_item(item):
     data.append(item)
 
 def save_json(data):
-    f = open("data.js", "w")
+    f = open("data.js", "w", encoding="utf_8")
     f.write("data="+json.dumps(data))
     f.close()
 
