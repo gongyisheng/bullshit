@@ -27,12 +27,31 @@
 </script>
 <style>
     p {white-space: pre-line;}
+    html, body {
+        height: 100%;
+    }
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+    .main {flex-grow: 1;}
+    /* .footer {
+        background-color: gray;
+    } */
 </style>
 <body>
-    <h2>Yisheng's Drafts Random Walker</h2>
-    <button type="button" onclick="refresh()">随机一条draft</button>
-    <h3 id="category"></h3>
-    <p id="content"></p>
-    <p id="time_created"></p>
+    <div class="main">
+        <h2>Yisheng's Drafts Random Walker</h2>
+        <button type="button" onclick="refresh()">随机一条draft</button>
+        <h3 id="category"></h3>
+        <p id="content"></p>
+        <p id="time_created"></p>
+    </div>
+    <div class="footer">
+        <hr \>
+        <p>Copyright@Yisheng Gong 2022 
+            <a href="https://github.com/gongyisheng/drafts">Github</a> <a href="https://yishenggong.com">My Blog</a>
+        </p>
+    </div>
 </body>
 </html>
