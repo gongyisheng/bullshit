@@ -1,16 +1,31 @@
 <html>
-<script>
+<script type="text/javascript" src="./website/data.js"></script>
+<script type="text/javascript">
+    function loadData(){
+        var _data = data;
+        return _data;
+    }
+    function getRandomItem(data){
+        const index = Math.floor(Math.random() * data.length);
+        return data[index];
+    }
     function setHTML(id, val){
         var element = document.getElementById(id);
         element.innerHTML = val;
     }
+    function refresh(){
+        const data = loadData();
+        const item = getRandomItem(data);
+        setHTML("category", item["category"]);
+        setHTML("content", item["content"]);
+        setHTML("time_created", new Date(item["time_created"]*1000));
+    }
 </script>
 <body>
-    <h1>Yisheng's Drafts</h1>
-    <hr />
-    <button type="button" onclick="">Click Me!</button>
-    <hr />
-    <p id="title"></p>
+    <h1>Yisheng's Drafts Random Walker</h1>
+    <button type="button" onclick="refresh()">随机一条draft</button>
+    <h3 id="category"></h3>
     <p id="content"></p>
+    <p id="time_created"></p>
 </body>
 </html>
