@@ -22,7 +22,8 @@
         const item = getRandomItem(data);
         setHTML("category", item["category"]);
         setHTML("content", item["content"]);
-        setHTML("time_created", new Date(item["time_created"]*1000));
+        time_created = new Date(item["time_created"]*1000);
+        setHTML("time_created", time_created.toLocaleString());
     }
 </script>
 <style>
