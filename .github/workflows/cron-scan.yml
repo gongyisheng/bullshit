@@ -1,0 +1,46 @@
+# Scan all markdown files and update data.js
+# This is a scan workflow that is manually triggered
+
+name: Cron Scan
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch:
+    branches: [ main ]
+  schedule:
+  # Runs every 1st day of a month
+  - cron: '0 0 1 * *'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "scan"
+  scan:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # setup python env
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        repository: 'gongyisheng/drafts'
+        fetch-depth: 0
+    - name: Setup Python
+      uses: actions/setup-python@v4.4.0
+      with: 
+        python-version: '3.10'
+    # run scan job
+    - name: Scan
+      run: |
+        cd website 
+        python scan.py
+    # git push updates
+    - name: Save Changes
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add website/data.js
+        git commit -m "update data.js (manual job)"
+        git push
