@@ -9,8 +9,9 @@ base_path = ["../fragments", "../opinion", "../poetry", "../short_story", "../un
 data = []
 
 def setup_logging():
-    logging.basicConfig(format='%(asctime)s [%(levelname)s] %(message)s')
     logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(format='%(asctime)s [%(levelname)s] %(message)s')
+    
 
 def list_file(path: str):
     #list all files in the path
@@ -25,7 +26,7 @@ def read_content(path: str):
 
 def get_time_created(file_path: str):
     raw_result = os.popen(f"git log --follow --format=%ad --date raw {file_path} | tail -1").read()
-    logging.debug(f"get_time_created: file_path={file_path}, result={raw_result}")
+    logging.debug(f"get_time_created: file_path={file_path}, result={raw_result.strip()}")
     return int(raw_result.split(" ")[0])
 
 def add_item(item: dict):
