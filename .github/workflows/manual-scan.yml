@@ -31,5 +31,7 @@ jobs:
       run: python scan.py
     # git push updates
     - name: Save Changes
-      run: git add data.js; git commit -m "update data.js (manual job)"; git push
-    
+      run: |
+        git add data.js
+        git commit -m "update data.js (manual job)"
+        git push
