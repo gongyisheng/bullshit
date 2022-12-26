@@ -7,7 +7,7 @@ name: Manual Scan
 # or API.
 on:
   workflow_dispatch:
-    branches: [ main, workflow ]
+    branches: [ main ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -21,6 +21,9 @@ jobs:
     # setup python env
     - name: Checkout
       uses: actions/checkout@v3
+      with:
+        repository: 'gongyisheng/drafts'
+        fetch-depth: 0
     - name: Setup Python
       uses: actions/setup-python@v4.4.0
       with: 
