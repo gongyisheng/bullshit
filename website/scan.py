@@ -25,7 +25,7 @@ def read_content(path: str):
     return content
 
 def get_time_created(file_path: str):
-    raw_result = os.popen(f"git log --follow --format=%ad --date raw {file_path} | tail -1").read()
+    raw_result = os.popen(f"git log -1 --format=%ad --date raw -- {file_path}").read()
     logging.debug(f"get_time_created: file_path={file_path}, result={raw_result.strip()}")
     return int(raw_result.split(" ")[0])
 
