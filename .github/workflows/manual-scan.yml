@@ -33,8 +33,8 @@ jobs:
     # git push updates
     - name: Save Changes
       run: |
-        git config --global user.name "gongyisheng"
-        git config --global user.email "yisheng_gong@onmail.com"
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git add website/data.js
         git commit -m "update data.js (manual job)"
         git push
