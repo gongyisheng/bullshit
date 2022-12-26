@@ -25,15 +25,14 @@ jobs:
       uses: actions/setup-python@v4.4.0
       with: 
         python-version: '3.10'
-    # change directory
-    - name: Change Directory
-      run: cd website
     # run scan job
     - name: Scan
-      run: python scan.py
+      run: |
+        cd website 
+        python scan.py
     # git push updates
     - name: Save Changes
       run: |
-        git add data.js
+        git add website/data.js
         git commit -m "update data.js (manual job)"
         git push
