@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 
 # The goal of this script is to scan contents from markdown files and 
@@ -6,6 +7,10 @@ import os
 
 base_path = ["../fragments", "../opinion", "../poetry", "../short_story", "../unnamed_things"]
 data = []
+
+def setup_logging():
+    logging.basicConfig(format='%(asctime)s [%(levelname)s] %(message)s')
+    logging.basicConfig(level=logging.DEBUG)
 
 def list_file(path: str):
     #list all files in the path
@@ -20,6 +25,7 @@ def read_content(path: str):
 
 def get_time_created(file_path: str):
     raw_result = os.popen(f"git log --follow --format=%ad --date raw {file_path} | tail -1").read()
+    logging.debug(f"get_time_created: file_path={file_path}, result={raw_result}")
     return int(raw_result.split(" ")[0])
 
 def add_item(item: dict):
@@ -111,4 +117,5 @@ def main():
 
 
 if __name__ == "__main__":
+    setup_logging()
     main()
