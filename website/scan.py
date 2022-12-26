@@ -18,6 +18,10 @@ def read_content(path: str):
     f.close()
     return content
 
+def get_time_created(file_path: str):
+    raw_result = os.popen(f"git log --follow --format=%ad --date raw {file_path} | tail -1").read()
+    return int(raw_result.split(" ")[0])
+
 def add_item(item: dict):
     """
     add a content item to data, including category, time_created, content
@@ -51,20 +55,22 @@ def process_with_year(base_path: str, category: str, items: list):
     for year in items:
         files = list_file(f"{base_path}/{year}")
         for file in files:
+            file_path = f"{base_path}/{year}/{file}"
             if category == "fragments":
-                process_fragments(file_path=f"{base_path}/{year}/{file}")
+                process_fragments(file_path=file_path)
             if category == "opinion":
-                process_opinion(file_path=f"{base_path}/{year}/{file}")
+                process_opinion(file_path=file_path)
 
 def process_without_year(base_path: str, category: str, items: list):
     """
     process category without nested year folders, such as poetry, short_story, unnamed_things
     """
     for file in items:
-        content = read_content(f"{base_path}/{file}")
+        file_path = f"{base_path}/{file}"
+        content = read_content(file_path)
         dp = {
             "category": category,
-            "time_created": os.path.getctime(f"{base_path}/{file}"),
+            "time_created": get_time_created(file_path),
             "content": content
         }
         add_item(dp)
@@ -79,7 +85,7 @@ def process_fragments(file_path: str):
         if len(content.strip()) > 0:
             dp = {
                 "category": "fragments",
-                "time_created": os.path.getctime(file_path),
+                "time_created": get_time_created(file_path),
                 "content": content
             }
             add_item(dp)
@@ -93,7 +99,7 @@ def process_opinion(file_path: str):
     content = read_content(file_path).strip()
     dp = {
         "category": "opinion",
-        "time_created": os.path.getctime(file_path),
+        "time_created": get_time_created(file_path),
         "content": content
     }
     add_item(dp)
