@@ -1,4 +1,5 @@
-# This is a basic workflow that is manually triggered
+# Scan all markdown files and update data.js
+# This is a scan workflow that is manually triggered
 
 name: Manual Scan
 
@@ -6,25 +7,29 @@ name: Manual Scan
 # or API.
 on:
   workflow_dispatch:
-    # Inputs the workflow accepts.
-    inputs:
-      name:
-        # Friendly description to be shown in the UI instead of 'name'
-        description: 'Person to greet'
-        # Default value if no value is explicitly provided
-        default: 'World'
-        # Input has to be provided for the workflow to run
-        required: true
+    branches: [ main, workflow ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "greet"
-  greet:
+  # This workflow contains a single job called "scan"
+  scan:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Runs a single command using the runners shell
-    - name: Send greeting
-      run: echo "Hello ${{ github.event.inputs.name }}"
+    # setup python env
+    - name: Setup Python
+      uses: actions/setup-python@v4.4.0
+      with: 
+        python-version: 3.10.0
+    # change directory
+    - name: Change Directory
+      run: cd website
+    # run scan job
+    - name: Scan
+      run: python scan.py
+    # git push updates
+    - name: Save Changes
+      run: git add data.js; git commit -m "update data.js (manual job)"; git push
+    
