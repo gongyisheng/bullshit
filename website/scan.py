@@ -1,7 +1,7 @@
 import json
 import os
 
-path = ["../fragments", "../opinion", "../poetry", "../short_story", "../unnamed_things"]
+base_path = ["../fragments", "../opinion", "../poetry", "../short_story", "../unnamed_things"]
 data = []
 
 def list_file(path):
@@ -23,30 +23,56 @@ def save_json(data):
     f.write("data="+json.dumps(data))
     f.close()
 
+def process_category(base_path):
+    category = base_path.split("/")[-1]
+    items = list_file(base_path)
+    if category in ["fragments", "opinion"]:
+        process_with_year(base_path, category, items)
+    else:
+        process_without_year(base_path, category, items)
+
+def process_with_year(base_path, category, items):
+    for year in items:
+        files = list_file(f"{base_path}/{year}")
+        for file in files:
+            if category == "fragments":
+                process_fragments(file_path=f"{base_path}/{year}/{file}")
+            if category == "opinion":
+                process_opinion(file_path=f"{base_path}/{year}/{file}")
+
+def process_without_year(base_path, category, items):
+    for file in items:
+        content = read_content(f"{base_path}/{file}")
+        dp = {
+            "category": category,
+            "time_created": os.path.getctime(f"{base_path}/{file}"),
+            "content": content
+        }
+        add_item(dp)
+
+def process_fragments(file_path):
+    for content in read_content(file_path).split("\n"):
+        if len(content.strip()) > 0:
+            dp = {
+                "category": "fragments",
+                "time_created": os.path.getctime(file_path),
+                "content": content
+            }
+            add_item(dp)
+
+def process_opinion(file_path):
+    content = read_content(file_path).strip()
+    dp = {
+        "category": "opinion",
+        "time_created": os.path.getctime(file_path),
+        "content": content
+    }
+    add_item(dp)
+
+
 def main():
-    for p in path:
-        category = p.split("/")[-1]
-        items = list_file(p)
-        if category in ["fragments", "opinion"]:
-            for year in items:
-                files = list_file(f"{p}/{year}")
-                for file in files:
-                    content = read_content(f"{p}/{year}/{file}")
-                    dp = {
-                        "category": category,
-                        "time_created": os.path.getctime(f"{p}/{year}/{file}"),
-                        "content": content
-                    }
-                    add_item(dp)
-        else:
-            for file in items:
-                content = read_content(f"{p}/{file}")
-                dp = {
-                    "category": category,
-                    "time_created": os.path.getctime(f"{p}/{file}"),
-                    "content": content
-                }
-                add_item(dp)
+    for category_base_path in base_path:
+        process_category(category_base_path)
     save_json(data)
 
 
