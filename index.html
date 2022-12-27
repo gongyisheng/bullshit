@@ -25,6 +25,7 @@
         time_created = new Date(item["time_created"]*1000);
         setHTML("time_created", time_created.toLocaleString());
     }
+    window.onload = refresh;
 </script>
 <style>
     p {white-space: pre-line;}
