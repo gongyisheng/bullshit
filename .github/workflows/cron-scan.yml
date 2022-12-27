@@ -42,5 +42,5 @@ jobs:
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git add website/data.js
-        git commit -m "update data.js (manual job)"
+        git commit -m "update data.js"
         git push
