@@ -1,4 +1,4 @@
-# drafts
+# Bullshit
 我的写作草稿  
 ### Structure  
 **fragments**: 通常是虚构的、无意义的练习片段  
