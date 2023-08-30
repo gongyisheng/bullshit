@@ -1,16 +1,16 @@
 # Scan all markdown files and update data.js
 # This is a scan workflow that is manually triggered
 
-name: Cron Scan
+name: Update website data
 
-# Controls when the action will run. Workflow runs when manually triggered using the UI
-# or API.
 on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
-    branches: [ main ]
-  schedule:
-  # Runs every 1st day of a month
-  - cron: '0 0 1 * *'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
