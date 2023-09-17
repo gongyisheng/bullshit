@@ -5,13 +5,17 @@
 </head>
 <script type="text/javascript" src="./website/data.js"></script>
 <script type="text/javascript">
+    var global_data = null;
     function loadData(){
-        var _data = data;
-        return _data;
+        if (global_data == null || global_data.length == 0){
+            global_data = data;
+        }
+        return global_data;
     }
-    function getRandomItem(data){
-        const index = Math.floor(Math.random() * data.length);
-        return data[index];
+    function getRandomItem(){
+        var index = Math.floor(Math.random() * global_data.length);
+        var item = global_data.pop(index);
+        return item;
     }
     function setHTML(id, val){
         var element = document.getElementById(id);
@@ -19,7 +23,7 @@
     }
     function refresh(){
         const data = loadData();
-        const item = getRandomItem(data);
+        const item = getRandomItem();
         setHTML("category", item["category"]);
         setHTML("content", item["content"]);
         time_created = new Date(item["time_created"]*1000);
