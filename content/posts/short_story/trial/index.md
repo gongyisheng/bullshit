@@ -1,5 +1,5 @@
 ---
-title: "Short Story - 审判 Trail"
+title: "Short Story - 审判 Trial"
 date: "2022-02-25"
 draft: false
 tags: ["short_story", "<信念的踵>"]
@@ -22,7 +22,7 @@ description: "让我几乎忘记这里曾经历过漫长的军人统治"
 2022.2
 
 
-Trail
+Trial
 
 I kept a strange habit that year. Every time I picked her up from school and sent her home, I would deliberately take a long detour down a not so smooth path, partly because I wanted to talk with her more and partly because that path was quite unique: its west side was a row of shops, but none of them opened their stores towards the street, and its east side was a tall brown and gray guardhouse wall, which was already very old. The wall is very old, and there is always some malicious graffiti on the wall. As far as I can remember, there was hardly a moment when the street was under the sun, it was always in the shadow of the building, either intentionally or not, or I made it up for myself. No one’s shadow can spill on this road. And because of this, it is a less popular road, or rather, it is not a road that we like at all, it is a quiet road and somewhat making us nervous.
 
